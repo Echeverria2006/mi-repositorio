@@ -1,0 +1,453 @@
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Portfolio Fotográfico</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&family=Playfair+Display&display=swap" rel="stylesheet">
+
+<style>
+*{margin:0;padding:0;box-sizing:border-box;}
+
+body{
+  font-family:'Poppins', sans-serif;
+  background:#fdf4f6;
+}
+
+/* PORTADA */
+.hero{
+  min-height:100vh;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  text-align:center;
+  padding:30px 15px;
+  background:
+    linear-gradient(rgba(248,233,236,0.85), rgba(233,214,218,0.9)),
+    url("https://picsum.photos/1200/800?blur=2");
+  background-size:cover;
+}
+
+.hero-box{
+  max-width:700px;
+}
+
+.hero h2{
+  font-family:'Playfair Display', serif;
+  font-size:clamp(1.6rem,6vw,3rem);
+}
+
+.hero p{
+  font-size:clamp(0.85rem,3vw,1.1rem);
+  margin:6px 0;
+}
+
+.logo{
+  width:90px;
+  margin-top:20px;
+}
+
+/* SECCIONES */
+.section{
+  padding:60px 15px;
+  text-align:center;
+}
+
+.section h2{
+  margin-bottom:25px;
+  font-family:'Playfair Display', serif;
+}
+
+/* 🔥 CARRUSEL ARREGLADO */
+.carousel{
+  width:95%;
+  max-width:850px;
+  margin:auto;
+  position:relative;
+  overflow:hidden; /* CLAVE */
+}
+
+.track{
+  display:flex; /* CLAVE */
+  transition:transform 0.5s ease;
+}
+
+.slide{
+  min-width:100%;
+}
+
+.slide img{
+  width:100%;
+  height:auto;
+  border-radius:12px;
+}
+
+/* BOTONES */
+button{
+  position:absolute;
+  top:50%;
+  transform:translateY(-50%);
+  background:white;
+  border:none;
+  padding:12px;
+  border-radius:50%;
+  cursor:pointer;
+}
+
+.prev{ left:5px; }
+.next{ right:5px; }
+
+</style>
+</head>
+
+<body>
+
+<!-- PORTADA -->
+<section class="hero">
+  <div class="hero-box">
+    <h2>Proyecto Visual Fotográfico</h2>
+    <p><strong>Materia:</strong> Arte y educación</p>
+    <p><strong>Profesora:</strong> Barenghi Nora</p>
+    <p><strong>Alumna:</strong> Fiorella Echeverría</p>
+    <p><strong>Carrera:</strong> Profesorado de Nivel Primario</p>
+    <p><strong>Institución:</strong> ISFD y T. N° 78</p>
+    <img src="img/Logo-Normal-para-pagina-1.png" class="logo">
+  </div>
+</section>
+
+<!-- SCRIPT -->
+<script>
+document.addEventListener("DOMContentLoaded", () => {
+
+  document.querySelectorAll(".carousel").forEach(carousel => {
+
+    const track = carousel.querySelector(".track");
+    const slides = carousel.querySelectorAll(".slide");
+    const next = carousel.querySelector(".next");
+    const prev = carousel.querySelector(".prev");
+
+    let index = 0;
+    let interval;
+    let startX = 0;
+
+    function update(){
+      track.style.transform = "translateX(-" + (index * 100) + "%)";
+    }
+
+    next.onclick = () => {
+      index = (index + 1) % slides.length;
+      update();
+    };
+
+    prev.onclick = () => {
+      index = (index - 1 + slides.length) % slides.length;
+      update();
+    };
+
+    /* AUTOPLAY */
+    function startAuto(){
+      interval = setInterval(()=>{
+        index = (index + 1) % slides.length;
+        update();
+      }, 4000);
+    }
+
+    function stopAuto(){
+      clearInterval(interval);
+    }
+
+    carousel.addEventListener("mouseenter", stopAuto);
+    carousel.addEventListener("mouseleave", startAuto);
+
+    /* SWIPE */
+    track.addEventListener("touchstart", e => {
+      startX = e.touches[0].clientX;
+    });
+
+    track.addEventListener("touchend", e => {
+      let endX = e.changedTouches[0].clientX;
+
+      if(startX - endX > 50) next.click();
+      else if(endX - startX > 50) prev.click();
+    });
+
+    startAuto();
+
+  });
+
+});
+</script>
+
+<!-- CARRUSEL 1 -->
+<section class="section">
+  <h2>Gran Plano General</h2>
+  <div class="carousel">
+    <div class="track">
+      <div class="slide"><img src="img/gran plano general 2.jpg"></div>
+      <div class="slide"><img src="img/gran plano general 3.jpg"></div>
+      <div class="slide"><img src="img/gran plano general 55.jpg"></div>
+      <div class="slide"><img src="img/gran plano general 6.jpg"></div>
+      <div class="slide"><img src="img/gran plano general 7.jpg"></div>
+    </div>
+    <button class="prev">←</button>
+    <button class="next">→</button>
+  </div>
+</section>
+
+<!-- CARRUSEL 2 -->
+<section class="section">
+  <h2>Plano Entero</h2>
+  <div class="carousel">
+    <div class="track">
+      <div class="slide"><img src="img/plano entero 6.jpg"></div>
+      <div class="slide"><img src="img/plano entero 1.jpeg"></div>
+      <div class="slide"><img src="img/plano entero 2.jpg"></div>
+      <div class="slide"><img src="img/plano entero 3.jpeg"></div> 
+  </div>
+  <button class="prev">←</button>
+  <button class="next">→</button>
+</div>
+ </section>
+
+
+
+
+<!-- CARRUSEL 3 -->
+<section class="section">
+  <h2>Plano Medio</h2>
+  <div class="carousel">
+    <div class="track">
+      <div class="slide"><img src="img/plano medio 1.jpg"></div>
+      <div class="slide"><img src="img/plano medio 3.jpg"></div>
+      <div class="slide"><img src="img/plano medio 4.jpg"></div>  
+      <div class="slide"><img src="img/plano medio 5.jpg"></div> 
+    </div>
+    <button class="prev">←</button>
+    <button class="next">→</button>
+  </div>
+</section>
+
+
+
+<!-- CARRUSEL 4 -->
+<section class="section">
+  <h2>Retrato Primerisimo Primer Plano</h2>
+  <div class="carousel">
+    <div class="track">
+      <div class="slide"><img src="img/retrato p. primer plano 1.jpg"></div>
+      <div class="slide"><img src="img/retrato p. primer plano 2.jpg"></div>
+      <div class="slide"><img src="img/retrato p. primer plano 3.jpg"></div>  
+      <div class="slide"><img src="img/retrato p. primer plano 4.jpg"></div> 
+      <div class="slide"><img src="img/retrato p. primer plano 5.jpg"></div> 
+    </div>
+    <button class="prev">←</button>
+    <button class="next">→</button>
+  </div>
+</section>
+
+
+
+<!-- CARRUSEL 5 -->
+<section class="section">
+  <h2>Plano Detalle</h2>
+  <div class="carousel">
+    <div class="track">
+      <div class="slide"><img src="img/pleno detalle 1.jpg"></div>
+      <div class="slide"><img src="img/pleno detalle 2.jpg"></div>
+      <div class="slide"><img src="img/pleno detalle 3.jpg"></div>  
+      <div class="slide"><img src="img/pleno detalle 4.jpg"></div> 
+      <div class="slide"><img src="img/pleno detalle 5.jpg"></div> 
+    </div>
+    <button class="prev">←</button>
+    <button class="next">→</button>
+  </div>
+</section>
+
+
+
+
+
+
+<!-- CARRUSEL 6-->
+<section class="section">
+  <h2>Angulos de toma: Normal</h2>
+  <div class="carousel">
+    <div class="track">
+      <div class="slide"><img src="img/angulos de toma normal 1.jpg"></div>
+      <div class="slide"><img src="img/angulos de toma normal 2.jpg"></div>
+      <div class="slide"><img src="img/angulos de toma normal 3.jpg"></div>  
+      <div class="slide"><img src="img/angulos de toma normal 4.jpg"></div>
+      <div class="slide"><img src="img/angulos de toma normal 5.jpg"></div>
+      
+      
+    </div>
+    <button class="prev">←</button>
+    <button class="next">→</button>
+  </div>
+</section>
+
+
+
+<!-- CARRUSEL 7 -->
+<section class="section">
+  <h2>Angulos de toma: Base</h2>
+  <div class="carousel">
+    <div class="track">
+      <div class="slide"><img src="img/angulos de toma base 1.jpg"></div>
+      <div class="slide"><img src="img/angulos de toma base2.jpg"></div>
+      <div class="slide"><img src="img/angulos de toma base 3.jpg"></div>  
+      <div class="slide"><img src="img/angulos de toma base 4.jpg"></div>  
+    </div>
+    <button class="prev">←</button>
+    <button class="next">→</button>
+  </div>
+</section>
+
+
+
+
+<!-- CARRUSEL 8 -->
+<section class="section">
+  <h2>Angulos de toma: Aereo </h2>
+  <div class="carousel">
+    <div class="track">
+      <div class="slide"><img src="img/angulos de toma aereo 1.jpg"></div>
+      <div class="slide"><img src="img/angulos de toma aereo 2.jpg"></div>
+      <div class="slide"><img src="img/angulos de toma aereo 3.jpg"></div>  
+    </div>
+    <button class="prev">←</button>
+    <button class="next">→</button>
+  </div>
+</section>
+
+
+
+
+<!-- CARRUSEL 9 -->
+<section class="section">
+  <h2>Angulos de toma: Picado</h2>
+  <div class="carousel">
+    <div class="track">
+      <div class="slide"><img src="img/angulos de toma picado 1.jpg"></div>
+      <div class="slide"><img src="img/angulos de toma picado 2.jpg"></div>
+      <div class="slide"><img src="img/angulos de toma picado 3.jpg"></div>  
+      <div class="slide"><img src="img/angulos de toma picado 4.jpg"></div> 
+    </div>
+    <button class="prev">←</button>
+    <button class="next">→</button>
+  </div>
+</section>
+
+
+
+
+<!-- CARRUSEL 10 -->
+<section class="section">
+  <h2>Angulos de toma: Contrapicado </h2>
+  <div class="carousel">
+    <div class="track">
+      <div class="slide"><img src="img/contrapicado.jpg"></div>
+      <div class="slide"><img src="img/contrapicado 2.jpg"></div>
+      <div class="slide"><img src="img/contrapicado 3.jpg"></div>  
+      <div class="slide"><img src="img/contrapicado 4.jpg"></div> 
+    </div>
+    <button class="prev">←</button>
+    <button class="next">→</button>
+  </div>
+</section>
+
+
+<!-- CARRUSEL 11 -->
+<section class="section">
+  <h2>Luz y Color: Ambiental</h2>
+  <div class="carousel">
+    <div class="track">
+      <div class="slide"><img src="img/ambiental.jpg"></div>
+      <div class="slide"><img src="img/ambiental 2.jpg"></div>
+      <div class="slide"><img src="img/ambiental 3.jpg"></div>  
+    </div>
+    <button class="prev">←</button>
+    <button class="next">→</button>
+  </div>
+</section>
+
+<!-- CARRUSEL 12 -->
+<section class="section">
+  <h2>Luz y Color: Natural</h2>
+  <div class="carousel">
+    <div class="track">
+      <div class="slide"><img src="img/natural 1.jpg"></div>
+      <div class="slide"><img src="img/natural 2.jpg"></div>
+      <div class="slide"><img src="img/natural 3.jpg"></div>  
+      <div class="slide"><img src="img/natural 4.jpg"></div> 
+    </div>
+    <button class="prev">←</button>
+    <button class="next">→</button>
+  </div>
+</section>
+
+
+<!-- CARRUSEL 13 -->
+<section class="section">
+  <h2>Luz y Color: Contraste</h2>
+  <div class="carousel">
+    <div class="track">
+      <div class="slide"><img src="img/contraste 1.jpg"></div>
+      <div class="slide"><img src="img/contraste 2.jpg"></div>
+      <div class="slide"><img src="img/contraste 3.jpg"></div>  
+      <div class="slide"><img src="img/contraste 4.jpg"></div> 
+    </div>
+    <button class="prev">←</button>
+    <button class="next">→</button>
+  </div>
+</section>
+
+<!-- CARRUSEL 14 -->
+<section class="section">
+  <h2>Luz y Color: Luz Focalizada</h2>
+  <div class="carousel">
+    <div class="track">
+      <div class="slide"><img src="img/luz focalizada 1.jpg"></div>
+      <div class="slide"><img src="img/luz focalizada 2.jpg"></div>
+      <div class="slide"><img src="img/luz focalizada 3.jpg"></div>  
+      <div class="slide"><img src="img/luz focalizada 4.jpg"></div> 
+      <div class="slide"><img src="img/luz focalizada 5.jpg"></div> 
+
+    </div>
+    <button class="prev">←</button>
+    <button class="next">→</button>
+  </div>
+</section>
+
+<!-- CARRUSEL 15 -->
+<section class="section">
+  <h2>Luz y Color: Contraluz</h2>
+  <div class="carousel">
+    <div class="track">
+      <div class="slide"><img src="img/contraluz 1.jpg"></div>
+      <div class="slide"><img src="img/contraluz 2.jpg"></div>
+      <div class="slide"><img src="img/contraluz 3.jpg"></div>  
+      <div class="slide"><img src="img/contraluz 4.jpg"></div> 
+    </div>
+    <button class="prev">←</button>
+    <button class="next">→</button>
+  </div>
+</section>
+
+<!-- CARRUSEL 16 -->
+<section class="section">
+  <h2>Luz y Color: Armonia de color</h2>
+  <div class="carousel">
+    <div class="track">
+      <div class="slide"><img src="img/armonia 1.jpg"></div>
+      <div class="slide"><img src="img/armonia 2.jpg"></div>
+    </div>
+    <button class="prev">←</button>
+    <button class="next">→</button>
+  </div>
+</section>
+</body>
+</html>
